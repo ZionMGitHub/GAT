@@ -2,16 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { CookiesProvider } from 'react-cookie';
+import { MoralisProvider } from "react-moralis";
+
 
 ReactDOM.render( 
-        <CookiesProvider>
-            <App />
-            </CookiesProvider> 
-    , document.getElementById('root'));
+     <CookiesProvider>
+        <MoralisProvider appId="B5N5Cqn4P5KNFGKKqrg8MWVFm1ca6SFeZPQ2R0Qq" serverUrl="https://hlvcv9b1appm.usemoralis.com:2053/server">
+                <App />
+            </MoralisProvider>
+    </CookiesProvider> 
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+    , document.getElementById('root'));
 
 
 // TODO:
@@ -19,10 +20,6 @@ ReactDOM.render(
 // GAT Site
     // mobile horizontal to portrait resize bug
     // fix sizes to adjust for white bar gone
-    // hamburger disappears on scoll
-    // not in rows of 3 while 974 < width < 1400
-    // site not scrollable
-
 
 // Mint Dashboard
     // fix dashboard using mesh ui library -> https://github.com/felixmariotto/three-mesh-ui

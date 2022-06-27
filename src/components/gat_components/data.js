@@ -15,7 +15,7 @@ export const data = {
     },
     'acropolis':{
         // title: ' MINTING 2.0',
-        text: ['We\'re rewarding our community by changing minting for good - when you mint, you can earn 50% of all secondary royalties for life. Plus, you can receive loyalty earnings paid out in ETH for holding too. Enter the Minting 2.0 Acropolis above to learn more. ',
+        text: ['We\'re rewarding our community by changing minting for good - when you mint, you can earn 50% of all secondary royalties for life. Plus, you can earn dividends paid out in ETH for holding too. Enter the Minting 2.0 Acropolis above to learn more. ',
                 // 'Along with Minting 2.0, people will also be able to help make a difference to the lives of those in and outside of the NFT space by opting to donate to the National Suicide Prevention Lifeline.'
             ],
         preview: 'We\'re rewarding our community by changing minting for good - when you mint, you can earn 50% of all secondary royalties for life',
@@ -96,7 +96,7 @@ export const data = {
         },
          {
             name: 'rey',
-            role: 'full-stack developer',
+            role: 'front-end developer',
             link: 'https://twitter.com/innoDev_eth',
             imgPath: '/team/dev.png'
         }, 
@@ -135,11 +135,6 @@ export const data = {
             role: 'comic book author',
             link: '',
              imgPath: '/team/ed.jpg'
-        },  {
-            name: 'Lesly',
-            role: 'Strategist',
-            link: 'https://www.linkedin.com/in/leslyramirez',
-             imgPath: '/team/les.png'
         }, 
   
     ],
@@ -154,21 +149,21 @@ export const data = {
             name: 'ankesh',
             role: 'chief technology officer',
             link: 'https://www.linkedin.com/in/ankesh27/',
-            imgPath: '/team/anki.png'
-        },],
-        [{
+             imgPath: '/team/anki.png'
+        },{
             name: 'rey',
-            role: 'full-stack developer',
+            role: 'front-end developer',
             link: 'https://twitter.com/innoDev_eth',
              imgPath: '/team/dev.png'
-        },     
+        },
+    ],
+         [
         {
             name: 'omar',
             role: 'head character artist',
             link: 'https://instagram.com/omarfrancia?igshid=YmMyMTA2M2Y=',
              imgPath: '/team/omar.png'
-        },],
-        [
+        },
          {
             name: 'connyr',
             role: 'marketing + art director',
@@ -192,25 +187,24 @@ export const data = {
             role: 'comic book artist',
             link: 'https://instagram.com/diegogrecoart?igshid=YmMyMTA2M2Y=',
             imgPath: '/team/diego.jpg'
-        },],
-        [
+        },
         {
             name: 'benjamin',
             role: 'website + promo artist',
             link: 'http://www.benleon.me/',
             imgPath: '/team/ben.jpg'
         },
-        {
-            name: 'Lesly',
-            role: 'Strategist',
-            link: 'https://www.linkedin.com/in/leslyramirez',
-            imgPath: '/team/les.png'
-        }
+        //   {
+        //     name: '',
+        //     role: 'role',
+        //     link: '#',
+        //     imgPath: ''
+        // },
     ]
     ],
     'socials':[
-        {link: 'https://twitter.com/GAT_NFT',imgPath: '../icons/twitter.png', navImg: '../icons/navTwitter.png',name:'twitter'},
-        {link: 'https://discord.gg/MnPeYS2mdG',imgPath: '../icons/discord.png', navImg: '../icons/navDiscord.png',name:'discord'},
+        {link: 'https://twitter.com/GAT_NFT',imgPath: '../icons/twitter.png', navImg: '../icons/navTwitter.png'},
+        // {link: '#',imgPath: '../icons/discord.png', navImg: '../icons/navDiscord.png'},
         // {link: '#',imgPath: '../icons/opensea.png', navImg: '../icons/navOpensea.png'},
     ]
 

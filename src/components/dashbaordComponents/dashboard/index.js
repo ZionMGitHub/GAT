@@ -23,9 +23,9 @@ let helpBelowRoyaltyFloor = <>Unfortunately no royalties were earned because thi
 
 
 let helpRoyaltyCollect = <>This balance shows the current amount of royalties that you have available to withdraw to your wallet. Press collect to action your withdrawal.</>
-let helpDividendCollect = <>This balance shows the current amount of loyalty rewards that you have available to withdraw to your wallet. Press collect to action your withdrawal.</>
+let helpDividendCollect = <>This balance shows the current amount of dividends that you have available to withdraw to your wallet. Press collect to action your withdrawal.</>
 let helpRoyaltyDistributed = <>This is the current total amount of royalties paid out to collectors across the entire NFT project. </>
-let helpDividendDistributed = <>This is the current total amount of loyalty rewards paid out to collectors across the entire NFT project. </>
+let helpDividendDistributed = <>This is the current total amount of dividends paid out to collectors across the entire NFT project. </>
 
 
 
@@ -184,7 +184,7 @@ const toggleConnect =()=>{
                                          order = {1}
                                         />
                                 <DistributedBox 
-                                        title='Loyalties distributed' 
+                                        title='dividends distributed' 
                                         eth = {currentCompanyInfo.dividendsTotal}
                                         convertUSD = {ethToDollar}
                                         helpText = {helpDividendDistributed}
@@ -241,7 +241,7 @@ const toggleConnect =()=>{
                                 order = {1}
                             />
                             <CollectionBox
-                                title='Loyalty to collect' 
+                                title='dividend to collect' 
                                 eth = {currentInfo.dividendToCollect}
                                 convertUSD = {ethToDollar}
                                 donationActive = {currentInfo.donationActiveDividend}

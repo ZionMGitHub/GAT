@@ -25,15 +25,10 @@ class ComicDash extends Component {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.callBack = this.callBack.bind(this);
     this.leaveDash = this.leaveDash.bind(this);
-    this.toggleCloseBtn = this.toggleCloseBtn.bind(this);
 
     this.tween1 = true;
     this.tween2 = false;
     this.debounce = true;
-
-    this.state = {
-        showCloseBtn: true
-    }
     // this.lockDash
   }
 
@@ -44,7 +39,7 @@ class ComicDash extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.handleWindowResize);
-    // console.log('mounted');
+    console.log('mounted');
     this.setupScene();
   }
 
@@ -279,7 +274,7 @@ class ComicDash extends Component {
 
     setTimeout(() => { 
                     this.tween2 = true;
-                    // console.log('mesh switched step 1');
+                    console.log('mesh switched step 1');
                     this.container.firstChild.style.opacity = '.85';
                     this.container.nextSibling.style.opacity = '1';
 
@@ -293,7 +288,7 @@ class ComicDash extends Component {
         this.settingsOptions.progress = 0;
   
         // this.finalScene.add(this.meshFinal);
-        // console.log('mesh switched step 2');
+        console.log('mesh switched step 2');
     }
 
     if (!this.tween2){
@@ -348,14 +343,6 @@ class ComicDash extends Component {
 
   }
 
-  //toggle close btn for comicverse
-  toggleCloseBtn(value) {
-    this.setState({showCloseBtn: value});
-
-    // console.log('toggled', value)
-  }
-
-
   componentWillUnmount() {
     this.stop();
     this.destroyContext();
@@ -365,7 +352,7 @@ class ComicDash extends Component {
     this.container.removeChild(this.renderer.domElement);
     this.container.remove();
     // this.renderer.forceContextLoss();
-    // console.log('successful unmount');
+    console.log('successful unmount');
   }
 
   leaveDash(){
@@ -415,7 +402,7 @@ class ComicDash extends Component {
             height: "100%",
             display: "block",
           }}>
-            <BtnWrapper showClose={this.state.showCloseBtn}>
+            <BtnWrapper>
                 <TravelBtn 
                 onClick={this.leaveDash}>
                  <CloseIcon/>
@@ -423,7 +410,7 @@ class ComicDash extends Component {
             </BtnWrapper>
           </div>
 
-          <ComicDashboard id={'comicverse'} style={{zIndex:'11'}} toggleCloseBtn={this.toggleCloseBtn}/>
+          <ComicDashboard id={'comicverse'}/>
          </div>
     );
   }
@@ -438,7 +425,7 @@ const CloseIcon = styled(IoCloseSharp)`
 `
 
 const BtnWrapper = styled.div`
-    z-index: ${({showClose})=>(showClose ? '10':'0')};
+  z-index: 40;
     position: absolute;
     top: 0;
     right: 0;

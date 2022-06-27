@@ -27,7 +27,7 @@ export const MainDisplay = (data) => {
 const Container = styled.section`
     position: relative;
     width: 75%;
-    /* bottom: -15%;; */
+    bottom: -15%;
     /* height: 100%; */
     /* display: flex;
     align-items: center; */

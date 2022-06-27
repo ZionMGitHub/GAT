@@ -58,9 +58,9 @@ const Container = styled.div`
 
 
     padding: 1rem; 
-    padding-top: 75px;
+    padding-top: 55px;
     @media screen and (max-width:576px ) {
-        padding-top: 60px;
+        padding-top: 50px;
     }
 
     ${({showPopUp})=> ((!showPopUp)? `
@@ -112,8 +112,8 @@ const Wrapper = styled.div`
 `
 
 const CloseBtn = styled.img`
-    width: 50px;
-	height: 50px;
+    width: 30px;
+	height: 30px;
     position: absolute; 
 	top: 0px;
 	right: 0px;
@@ -127,8 +127,8 @@ const CloseBtn = styled.img`
   }
 
   @media screen and (max-width:576px ) {
-        width: 35px;
-	    height: 35px;
+        width: 25px;
+	    height: 25px;
     }
   
 `

@@ -28,7 +28,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getPerformance } from "firebase/performance";
 
-
+import { useMoralis } from "react-moralis";
 
 import { hotjar } from 'react-hotjar';
 
@@ -58,10 +58,12 @@ class App extends Component {
       this.resizeWindow = this.resizeWindow.bind(this);
       this.toggleIsVaultLocked = this.toggleIsVaultLocked.bind(this);
       this.closePopUp = this.closePopUp.bind(this);
+ 
 
       // console.log(`cookies set to ${this.state.isVaultLocked}`);
     }
     
+   
 
     // sets up loading logic
     async componentDidMount() {
@@ -85,12 +87,14 @@ class App extends Component {
         
         // pop up for not deskop
         const { cookies } = this.props;
+
         if(!isDesktop &  cookies.get('hasVisited') !== 'true'){
           demoAsyncCall(1000).then(()=>{
               cookies.set('hasVisited', 'true', { path: '/' });
-              console.log('show pop');
+              console.log('show pop');         
               this.setState({showPopUp: true});
           });
+
         }
       });
       hotjar.initialize('2960422', 6);
@@ -113,6 +117,21 @@ class App extends Component {
       } 
     }
 
+     // cookies handler
+    whitelistHandler = () =>{
+      const { cookies } = this.props;
+      // if (this.state.isVaultLocked === 'true'){
+      //     cookies.set('isVaultLocked', 'false', { path: '/' });
+      //     this.setState({ isVaultLocked: 'false' });
+      //     // console.log(this.state.isVaultLocked);
+      //     return false;
+      // }else{
+      //    cookies.set('isVaultLocked', 'true', { path: '/' });
+      //     this.setState({ isVaultLocked: 'true' });
+      //     // console.log(this.state.isVaultLocked);
+      //     return true;
+      // } 
+    }
 
     //called on resize event
     resizeWindow = () => {
@@ -174,7 +193,9 @@ class App extends Component {
     }
 
 
+
   render() {
+    // const { authenticate, isAuthenticated, user } = useMoralis();
 
     return (
 
@@ -197,7 +218,10 @@ class App extends Component {
             {/* app body */}
             <div style={{display: `${this.state.loading ? 'none': ''}`}}> 
 
-             <Navbar mintDashCall={this.toggleMintDash}  comicDashCall={this.toggleComicDash} isDesktopBG={this.state.desktop}/>
+             <Navbar
+                mintDashCall={this.toggleMintDash}  
+                comicDashCall={this.toggleComicDash} 
+                isDesktopBG={this.state.desktop}/>
 
               {this.state.showPopUp && <Popup closePopUp={this.closePopUp}/> }
 
@@ -205,12 +229,10 @@ class App extends Component {
                   <img 
                   src= {`${this.state.desktop  ? "./images/bg.jpg" : "./images/bg_mobile.jpg"}`} 
                   alt='bg' width={'100%'} 
-                 style={{ marginBottom: '-50px', marginTop:'0px'}}
+                  // style={{ marginBottom: '-25px'}}
                   />
                  
-                  <div 
-                  style={{paddingTop: '50px'}}
-                  >
+
                     {/* landing section */}
                    <Landing id='home' isDesktop={this.state.desktop}/>
 
@@ -297,7 +319,6 @@ class App extends Component {
                     {this.state.mintDisplay && <MintDashWrapper id='mintDash'>{this.newScene}</MintDashWrapper>}
                     {this.state.comicDisplay && <ComicDashWrapper id='comicverse'>{this.newScene}</ComicDashWrapper>}
                   </div>
-                  </div>
               </BackWrapper>
               </div>
             </ThemeProvider>
@@ -314,6 +335,8 @@ function demoAsyncCall(time) {
   return new Promise((resolve) => setTimeout(() => resolve(), time));//1500
 }
 
+// ////////// FIREBASE SETUP ////////////////////////
+
 const firebaseConfig = {
   apiKey: "AIzaSyBVUE1T6xqjhxg0oWWYVmHRGXBLfs7i8pg",
   authDomain: "gt-dev-ca5f4.firebaseapp.com",
@@ -328,13 +351,14 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const perf = getPerformance(app);
 
+
+// ////////// STYLES ////////////////////////
 const BackWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   top: 0%;
   margin: 0 auto;
-  background-color: rgba(79,27,39);
 `
 
 const Acropolis = styled.section`

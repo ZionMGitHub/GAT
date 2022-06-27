@@ -67,13 +67,11 @@ export const GlobalStyle = createGlobalStyle`
   #root{
     font-family: 'Poppins', sans-serif;
     -webkit-overflow-scrolling: touch;
-   
   }
 
   #body{
     width: 100vw;
     overflow-x: hidden;
-    
   }
 
   #mintDash{
@@ -221,8 +219,14 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     width: 100vw;
 
-  }
+    
+    /* background-size: cover; */
 
+      @media screen and (max-width: 750px){
+       height: 100%;
+       margin-bottom: 20px;
+    }
+  }
 
 
 
@@ -239,7 +243,7 @@ Slider
   height: 200px;
   /* height: 120%; */
   /* flex: 1; */
-  /* max-width: 650px; */
+  max-width: 650px;
   text-align: center;
   position: relative;
   display: flex;
@@ -372,7 +376,7 @@ nav menu
 
 	&:hover{
 		opacity: 1;
-    cursor: pointer;
+    /* cursor: pointer; */
 	}
 	span{
 		display: block;
@@ -545,6 +549,8 @@ nav menu
 
 		}
 	}
+
+
 
   .book-page{
     &:hover{
@@ -745,7 +751,3 @@ export const useWindowDimensions = ()=> {
   return windowDimensions;
 }
 
-export const showMobileViewer = () => {
-  // let container = 
-
-}

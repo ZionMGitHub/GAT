@@ -3,9 +3,15 @@ import { Link as LinkS } from 'react-scroll';
 import styled from 'styled-components';
 import { isDesktop  } from 'react-device-detect';
 
-const SidebarNew = ({mintDashCall,comicDashCall}) => {
+import { useMoralis } from "react-moralis"
+
+
+const SidebarNew = ({mintDashCall,comicDashCall, isLoading , whitelistLogic}) => {
+
 
     const[ isOpened, setIsOpened] = useState(false);
+    const { isAuthenticated, logout, isAuthenticating } = useMoralis();
+
 
     useEffect(() => {
         window.addEventListener('scroll', ()=>{
@@ -26,7 +32,7 @@ const SidebarNew = ({mintDashCall,comicDashCall}) => {
     }
 
   return (
-    <Wrapp onClick={toggleNav}>
+    <Wrapp >
       <CloseBtn src={'./icons/close.png'} isOpened={isOpened} onClick={toggleNav}/>
 
     <div className={`open ${isOpened ? "oppenned" : ""}`}>
@@ -36,8 +42,20 @@ const SidebarNew = ({mintDashCall,comicDashCall}) => {
 
       <span>
         <ul className="sub-menu">
-         { isDesktop && <li>
-            <a href="/" onClick={(e)=>{e.preventDefault()}}>Connect wallet</a>
+         { isDesktop && 
+         
+         <li style={{padding: `${isAuthenticated ? '.5rem .9rem': ''}`}}>
+            <a href="/" onClick={(e)=>{ 
+                    e.preventDefault();
+
+                    if (!isAuthenticated) { 
+                      whitelistLogic(); 
+                    }else{
+                      // console.log(user.get('ethAddress'))
+                      logout()
+                  }
+                              
+            }}> {!isAuthenticated || isLoading ? `${isAuthenticating || isLoading ? 'Loading...':'Connect Wallet'}` : 'Wallet Connected'} </a>
           </li>}
           <li>
             <a href="./whitepaper.pdf" target={'true'}>whitepaper</a>
@@ -104,11 +122,11 @@ const Wrapp = styled.div`
 
 
 const CloseBtn = styled.img`
-   width: 50px;
-	height: 50px;
+   width: 30px;
+	height: 30px;
   position: absolute; 
 	top: 0px;
-	right: 0px;
+	right: 5px;
   margin: 28px;
   z-index: 50;
   opacity: ${({isOpened})=> isOpened ? '.75' : '0'};
@@ -120,8 +138,8 @@ const CloseBtn = styled.img`
   /* display: none; */
 
   @media screen and (max-width:576px ) {
-        width: 35px;
-	      height: 35px;
+        width: 30px;
+	      height: 30px;
     }
 
  @media screen and (max-width: 770px) {

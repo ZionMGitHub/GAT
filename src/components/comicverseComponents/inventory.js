@@ -85,15 +85,6 @@ export const Inventory = ({
 
          </InviteBtnWrap>
 
-         {/* <TutorialContainer>
-             <Lines>
-                 <MiddleLine/>
-                </Lines>
-             <TutorialTextBox>
-                    This your inventory. Select NFts from your wallet to view them in generated comic.
-             </TutorialTextBox>
-         </TutorialContainer> */}
-
    </Container> 
            
   )
@@ -264,6 +255,8 @@ const InviteBtnWrap = styled.div`
 
 `
 
+
+
 const ConnectBtnWrap = styled.div`
     position: absolute;
     bottom: 100%;
@@ -276,10 +269,13 @@ const ConnectBtnWrap = styled.div`
 
 `
 
-const BtnImg = styled.img`
+    const BtnImg = styled.img`
     height: 100%;
     width: 100%;
+    
+
     `
+
 
 const WalletTxt = styled.div`
     position: absolute;
@@ -342,51 +338,4 @@ const getDisplayed = (inventory, currentIndex, displayLength) => {
     }
 
 
-
-const TutorialContainer = styled.div`
-    position: absolute;
-    left: 100%;
-    height: 100%;
-    width: 300px;
-    /* background-color: red; */
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 100;
-    overflow-x: visible;
-`
     
-const Lines = styled.div`
-    margin: .5rem;
-    /* border-top: 2px white solid;
-    border-bottom: 2px white solid;
-    border-right: 2px white solid; */
-    border-left: 2px white solid;
-    height: 80%;
-    width: 35px;
-    display: grid;
-    place-content: center;
-    /* background-color: red; */
-    padding: 0;
-`
-
-const MiddleLine = styled.span`
-    width: 35px;
-    background-color: white;
-    border: 1px solid white;
-    /* height: 2px; */
-
-`
-
-const TutorialTextBox = styled.div`
-    height: 50%;
-    color: white;
-    display: grid;
-    place-items: center;
-    /* width: 300px; */
-    /* background-color: black; */
-
-
-
-`

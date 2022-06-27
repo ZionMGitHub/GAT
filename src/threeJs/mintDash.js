@@ -164,7 +164,7 @@ class MintDash extends Component {
       this.sceneRoom.add(myText);
 
       // Set properties to configure:
-      myText.text =`We believe collectors of our project deserve to benefit more. That\'s why we\'ve changed minting for good.\n\nFor the first time ever, if you mint one of our NFTs, you can earn 50% of the royalties. 50% of the remaining royalties enter a loyalty pool and will be paid out in ETH to owners who hold their NFTs in line with our schedule defined in the whitepaper.\n\nAll earnings can be tracked live on the Vault Dashboard to your left.\n\nWays to mint:\n1. Earn a spot on the Gods & Titans pre-sales list.\n2. Purchase a Gods & Titans NFT from the secondary market.`;
+      myText.text =`We believe collectors of our project deserve to benefit more. That\'s why we\'ve changed minting for good.\n\nFor the first time ever, if you mint one of our NFTs, you can earn 50% of the royalties. 50% of the remaining royalties enter a dividends pool and will be paid out in ETH to owners who hold their NFTs in line with our schedule defined in the whitepaper.\n\nAll earnings can be tracked live on the Vault Dashboard to your left.\n\nWays to mint:\n1. Earn a spot on the Gods & Titans pre-sales list.\n2. Purchase a Gods & Titans NFT from the secondary market.`;
       myText.fontSize = 16;
       myText.anchorX = 'center';
       myText.anchorY = 'middle';

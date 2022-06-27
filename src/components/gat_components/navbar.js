@@ -5,37 +5,37 @@ import {FaBars} from 'react-icons/fa';
 // import { animateScroll as scroll } from 'react-scroll/modules';
 import {FaTimes} from 'react-icons/fa';
 import { Link as LinkS } from 'react-scroll';
-import { data } from './data';
 import styled from 'styled-components';
-import Sidebar from './sidebar';
 import { isDesktop, isMobileOnly  } from 'react-device-detect';
 import SidebarNew  from './sidebar2';
+import {WhitelistModal}  from './whitelistModal';
+
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 
+// import  {Moralis}  from "../../service/moralis";
+import { useMoralis} from "react-moralis"
+import Web3 from "web3";
 
 
-const links = [
-    {
-        id: 1,
-        label: 'whitepaper',
-        link: 'about'
-    },
-    {
-        id: 2,
-        label: 'comic studio',
-        link: 'discover'
-    },
-     {
-        id: 3,
-        label: 'the vault',
-        link: 'services'
-    },
-]
+const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
 
+    const { authenticate, isAuthenticated, logout, user, isAuthenticating, Moralis } = useMoralis();
+    //const web3Provider = Moralis.enableWeb3();
 
-const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [showWLpopup, setShowWLpopup] = useState(false);
+    const [status, setStatus] = useState([''])
+    const [BtnText, setBtnText] = useState('Connect Wallet')
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [cookies, setCookie, removeCookie] = useCookies();
+
+    // console.log(cookies['hasVisited']);
+
+    // const testAddress = '0x6BB5971129066120D665034D78B32c1A35bAB55E';
 
     const toggleNav = () => {
         setIsOpen(!isOpen);
@@ -48,11 +48,10 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
         }else{
              setScrollNav(false);
         }
-
-        
     }
 
     useEffect(() => {
+        setBtnText(isAuthenticated? 'Wallet Connected' : 'Connect Wallet')
         window.addEventListener('scroll', ()=>{
             changeNav();
             setIsOpen(false);
@@ -63,47 +62,86 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
         // scroll.scrollToTop();
     }
 
+         //close btn
+    const closeWhitelistPopUp= ()=>{
+      setTimeout(() => { setShowWLpopup(false) }, 900);
+    }
+
+
+
+
+
+    //function to get nfts from user wallet
+    /*const getUserNFTs = () =>{
+        // get NFTs for current user on Mainnet
+        const userEthNFTs = await Moralis.Web3API.account.getNFTs();
+
+// get testnet NFTs for user
+        const testnetNFTs = await Moralis.Web3API.account.getNFTs({ chain: "ropsten" });
+
+// get polygon NFTs for address
+        const options = {
+            chain: "eth",
+            address: "08b4a34f9de279f272f2c01d7",
+        };
+        const polygonNFTs = await Moralis.Web3API.account.getNFTs(options);
+    }
+*/
+
+
+
+
+
+
+
+    //cookies.setCookie(whitelisted)
+    /* Problem here where the connect wallet button only
+    works on the second press and doesn't logout if you press
+    the button again*/
+    const whitelistLogic = () =>{
+        Moralis.authenticate().then(function (user) {
+            console.log(user.get('ethAddress'))
+            setBtnText('Wallet Connected')
+        })
+        /*
+        //func to get user wallert address from cookies then check wallet
+        if(cookies.get(//NFT user address)){
+            //display message
+            logout()
+        } else {
+            getUserNFTs()
+        }
+
+        //cookies.setCookie(WhiteListed,false)
+        */
+    }
+
+
+
+
+
+
+
+
 
 
   return ( <>
- 
+        {showWLpopup && <WhitelistModal closePopUp={closeWhitelistPopUp} status={status}/>}
 
+   
         <Nav scrollNav = {scrollNav}>
             <NavbarContainer scrollNav = {scrollNav}>
-                    
-                    {/* initial view */}
-                    {/* <BtnGroup scrollNav = {scrollNav}>
-                        {data.socials.map((social,index)=>{
-                            return <BtnWrapper   href={social.link}  key={index} scrollNav = {scrollNav} target="_blank">
-                                <BtnImg src={social.navImg}/>
-                            </BtnWrapper>                      
-                        })}
-                        </BtnGroup> */}
 
-
-                          <NavMenu scrollNav = {scrollNav}>
-                    {/* {links.map((item)=>{
-                        return <NavItem key={item.id}>
-                            <NavLinks key={item.id}
-                                to={item.link} 
-                                smooth={true} 
-                                duration={500} 
-                                spy={true} 
-                                exact={'true'} 
-                                offset={-80}
-                                activeClass='active' >
-                                {item.label}  
-                            </NavLinks>
-                        </NavItem>
-
-                    })} */}
+                <NavMenu scrollNav = {scrollNav}>
                 
+                    {/* whitepaper */}
                     <NavItem >
                             <NavLinkA href="./whitepaper.pdf" target={'true'}>
                                whitepaper
                             </NavLinkA>
                         </NavItem>
 
+                    {/* comic studio */}
                         <NavItem >
                             <NavLinks
                                 to={'cloud'} 
@@ -122,6 +160,7 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
                             </NavLinks>
                         </NavItem>
 
+                    {/* the vault */}
                         <NavItem>
                             <NavLinks 
                                 to={'acropolis'} 
@@ -141,8 +180,25 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
                 </NavMenu>
              
                   <NavBtn>
-                    {!scrollNav ?  <NavLinks to="" onClick={(e)=>{e.preventDefault()}}>Connect Wallet</NavLinks>:   <SidebarNew mintDashCall={mintDashCall}  
-                            comicDashCall={comicDashCall}/>}
+                    {!scrollNav ?  <NavLinks to="" onClick={(e)=>{
+                            e.preventDefault();
+                            
+                            if (!isAuthenticated) {
+                                whitelistLogic();
+                            } else{
+                                logout();
+                                setBtnText('Wallet Connected')
+                            }
+    
+                           
+                        }}> {BtnText} </NavLinks>
+                        
+                        :  <SidebarNew 
+                            mintDashCall={mintDashCall}  
+                            comicDashCall={comicDashCall}
+                            isLoading={isLoading} 
+                            whitelistLogic={whitelistLogic}
+                            />}
                    
 
                 </NavBtn>
@@ -150,8 +206,13 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG }) => {
               
                     {window.innerWidth < 770 ? 
                     <><MintDateWrapper scrollNav = {scrollNav}>Mint date: Tba</MintDateWrapper>
-                         <SidebarNew mintDashCall={mintDashCall}  
-                            comicDashCall={comicDashCall}/>
+                         <SidebarNew 
+                            mintDashCall={mintDashCall}  
+                            comicDashCall={comicDashCall}
+                            isLoading={isLoading} 
+                            whitelistLogic={whitelistLogic}
+                            />
+                           
                     </>
                     
                         :<></>

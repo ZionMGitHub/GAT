@@ -16,14 +16,22 @@ export const Teams = (props) => {
     const {windowWidth, windowHeight } = useWindowDimensions();
     
     return (<TeamsHolder>
+    {/* desktop view */}
+    {/* {windowWidth > 800 ? <>
+        <Team id='team' title='the creative deptartment' start={1} isDesktop={isDesktop}/>
+        <Team title='the team' start={2} isDesktop={isDesktop}/></>
+     : */}
+
     {/* //  tablet view */}
     <>
-    { windowWidth > 614 ? 
+    { windowWidth > 576 ? 
         <Team title='the team and creative department' start={1} isDesktop={isDesktop}/>
         : 
          //mobile view
         <TeamMobile start={3} isDesktop={isDesktop}/>}
     </>
+    {/* } */}
+
 
    </TeamsHolder>);
 }
@@ -61,7 +69,7 @@ export const TeamMobile = (props) => {
   return (
      <TeamContainer type={start} isDesktop={isDesktop}>
 
-         <Heading style={{marginBottom: '1rem'}}>the team and <br/>creative department</Heading>
+         <Heading>the team and <br/>creative department</Heading>
            
         {/* all images displayed over md breakpoint*/}
           <BubbleWrapper>
@@ -70,7 +78,7 @@ export const TeamMobile = (props) => {
                   {pairs.map((pair,pairIndex)=> {
                        let p1= pair[0];
                       let p2 = pair[1];
-                      // let p3 = pair[2];
+                      let p3 = pair[2];
 
 
                       let position = 'nextSlide'; 
@@ -105,7 +113,10 @@ export const TeamMobile = (props) => {
                                 <PersonBox>   
                                     <a href={p2.link} target={'true'}>
                                     <Bubble backimage={p2.imgPath} >
-                                        
+                                          {/* <img width={'100%'} src={p2.imgPath}/> */}
+                                        {/* {p2.name === 'richard' ? <HaloWrap>
+                                        <img width={'100%'} src='./images/halo.png'/>
+                                        </HaloWrap> : ''} */}
                                     </Bubble>
                                     </a>
                                     <Description>
@@ -115,17 +126,20 @@ export const TeamMobile = (props) => {
                                 </PersonBox>
 
                                 {/* person 3 */}
-                                 {/* <PersonBox>   
+                                 <PersonBox>   
                                     <a href={p3.link} target={'true'}>
                                     <Bubble backimage={p3.imgPath} >
-                      
+                                          {/* <img width={'100%'} src={p2.imgPath}/> */}
+                                        {/* {p2.name === 'richard' ? <HaloWrap>
+                                        <img width={'100%'} src='./images/halo.png'/>
+                                        </HaloWrap> : ''} */}
                                     </Bubble>
                                     </a>
                                     <Description>
                                         <Text strong={true}>{p3.name}</Text>
                                         <Text>{p3.role}</Text>
                                     </Description>
-                                </PersonBox> */}
+                                </PersonBox>
                         </PersonPair>
                          
                       </article>
@@ -202,7 +216,7 @@ const TeamContainer = styled.div`
     top: 78%;
     height: ${({type}) => (type === 1 ? '8%' : '6%')};
 
-     @media screen and (max-width: 950px){
+     @media screen and (max-width: 1100px){
        /* width: 85px; */
         /* background-color: blue; */
         top: 80%;
@@ -211,7 +225,7 @@ const TeamContainer = styled.div`
        @media screen and (max-width: 770px){
        /* width: 85px; */
         /* background-color: grey; */
-        /* max-width: 600px; */
+        padding: 0 15%;
         top: ${({type}) => (type === 1 ? '85%' : '86%')};
     }
 
@@ -231,24 +245,32 @@ const TeamContainer = styled.div`
 const BubbleWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 0 1rem;
   flex-wrap: wrap;
   width: 100%;
   /* height: 100%; */
-  /* background-color: limegreen; */
+  /* background-color: rgba(50,240,20,.5); */
   /* min-width: 560px; */
   /* max-width: 750px; */
   margin-top: .5rem;
   min-height: 200px;
-  max-width: 700px;
+  max-width: 680px;
+
+
+  @media screen and (max-width: 770px){
+         max-width: 500px;
+
+    }
+
+
 
 
 `
 
 const PersonBox = styled.div`
     width: 120px;
-    height: 200px;
+    height: 190px;
     /* background-color: red; */
     margin: .8rem .75rem;
     display: flex;
@@ -265,65 +287,37 @@ const PersonBox = styled.div`
       /* background-color: purple; */
     }
 
-     @media screen and (min-width: 576px) and (max-width: 770px){
+     @media screen and (max-width: 1100px){
        /* width: 85px; */
         /* background-color: yellow; */
-        width: 120px;
-
-      /* &:nth-of-type(1) ~ div{ */
-          /* background-color: black; */
-          margin: .5rem 4.5%;
-        /* } */
-
-        &:nth-of-type(3) ~ div{
-          /* background-color: purple; */
-          margin: 1rem 2%;
-
-        }
-        &:nth-of-type(7) ~ div{
-          /* background-color: grey; */
-          margin: .5rem 4.5%;
-
-        }
+        width: 100px;
+        /* margin: .5rem 1.5rem; */
     }
 
-     @media screen and (min-width: 770px){
-          width: 95px;
+     @media screen and (max-width: 770px){
+          width: 85px;
         /* background-color: green; */
-        
+         margin: .5rem 1.1rem;
     }
+
+
 
 
      @media screen and (max-width: ${props => props.theme.breakpoints.sm}){
-        width:  120px;
-        margin: .5rem .5;
+       width:  85px;
+        margin: .5rem 0;
+
+        &:nth-child(2){
+           margin: .5rem .7rem;
+        }
+      /* background-color: purple; */
     }
 
     &:hover{
       cursor: pointer;
     }
 
-    @media screen and (min-width: 950px){
-       /* width: 85px; */
-        /* background-color: yellow; */
-        width: 120px;
-
-      /* &:nth-of-type(1) ~ div{ */
-          /* background-color: black; */
-          margin: .5rem 4.5%;
-        /* } */
-
-        &:nth-of-type(3) ~ div{
-          /* background-color: purple; */
-            margin: 1rem 2%;
-        }
-        &:nth-of-type(7) ~ div{
-          /* background-color: grey; */
-          margin: .5rem 4.5%;
-
-        }
-    }
-
+  
 
 `
 
@@ -339,13 +333,14 @@ const PersonPair = styled.div`
 
 
 const Bubble = styled.div`
-    width: 95px;
-    height: 95px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     background-color: antiquewhite;
     border: 2px;
     border-style: solid;
     border-color: #ffffff;
+    border-radius: 50px;
     outline: none;
     background-image: url('${(props) => props.backimage}');
     background-position: center;
@@ -361,15 +356,17 @@ const Bubble = styled.div`
         cursor: pointer;
     }
 
-    @media screen and (max-width: 614px){
-       width: 95px;
-       height: 95px;
+
+
+    @media screen and (max-width: ${props => props.theme.breakpoints.md}){
+       width: 85px;
+       height: 85px;
  
     }
 
      @media screen and (min-width: ${props => props.theme.breakpoints.xl}){
-       width: 110px;
-       height: 110px;
+       width: 120px;
+       height: 120px;
      
     }
 

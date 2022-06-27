@@ -13,16 +13,10 @@ export const Join = (props) => {
         <BtnGroup>
 
           {data.socials.map((social,index)=>{
-             return( 
-             social.name !== "discord" || (new Date("2022-06-16T18:00")) < (new Date())? 
-             
-             <BtnWrapper href={social.link}  key={index} target="_blank">
+             return <BtnWrapper href={social.link}  key={index} target="_blank">
                 <BtnImg src={social.navImg}/>
               </BtnWrapper>
-              
-              : <></>
-             
-              )
+
           })}
 
         </BtnGroup>
