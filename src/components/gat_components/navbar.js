@@ -91,12 +91,12 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
             })
             .then(Response => Response.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
             
             
             //change when bluechip func is complete. Get rid of setcookies
-                setCookie('whiteListed',true)
-            if (cookies['whiteListed']){
+                //setCookie('whiteListed',true)
+            if (cookies['whiteListed'] === 'true'){
                 console.log('whitelisted')
 
 
@@ -117,10 +117,13 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
 
     
     const bluechipCheck = (data) =>{
-        var allNFTs = JSON.parse(data);
+        var allNFTs = data.result
+        console.log(allNFTs)
         for(var nft in allNFTs) {
+            
         }
     }
+
 
 
 
