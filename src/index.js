@@ -7,7 +7,7 @@ import { MoralisProvider } from "react-moralis";
 
 ReactDOM.render( 
      <CookiesProvider>
-        <MoralisProvider appId="B5N5Cqn4P5KNFGKKqrg8MWVFm1ca6SFeZPQ2R0Qq" serverUrl="https://hlvcv9b1appm.usemoralis.com:2053/server">
+        <MoralisProvider appId="DxrLYPn1x1SXqZp0I8O3E288Vs8e9Nbui3XVpgt2" serverUrl="https://lpf37u0t7fy7.usemoralis.com:2053/server">
                 <App />
             </MoralisProvider>
     </CookiesProvider> 

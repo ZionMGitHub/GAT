@@ -15,6 +15,8 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 
 // import  {Moralis}  from "../../service/moralis";
 import { useMoralis} from "react-moralis"
+import { useMoralisWeb3Api } from "react-moralis";
+
 import Web3 from "web3";
 
 
@@ -51,7 +53,10 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
     }
 
     useEffect(() => {
+        setCookie('whiteListed',false)
+
         setBtnText(isAuthenticated? 'Wallet Connected' : 'Connect Wallet')
+
         window.addEventListener('scroll', ()=>{
             changeNav();
             setIsOpen(false);
@@ -67,34 +72,7 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
       setTimeout(() => { setShowWLpopup(false) }, 900);
     }
 
-
-
-
-
-    //function to get nfts from user wallet
-    /*const getUserNFTs = () =>{
-        // get NFTs for current user on Mainnet
-        const userEthNFTs = await Moralis.Web3API.account.getNFTs();
-
-// get testnet NFTs for user
-        const testnetNFTs = await Moralis.Web3API.account.getNFTs({ chain: "ropsten" });
-
-// get polygon NFTs for address
-        const options = {
-            chain: "eth",
-            address: "08b4a34f9de279f272f2c01d7",
-        };
-        const polygonNFTs = await Moralis.Web3API.account.getNFTs(options);
-    }
-*/
-
-
-
-
-
-
-
-    //cookies.setCookie(whitelisted)
+  
     /* Problem here where the connect wallet button only
     works on the second press and doesn't logout if you press
     the button again*/
@@ -102,20 +80,47 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
         Moralis.authenticate().then(function (user) {
             console.log(user.get('ethAddress'))
             setBtnText('Wallet Connected')
-        })
-        /*
-        //func to get user wallert address from cookies then check wallet
-        if(cookies.get(//NFT user address)){
-            //display message
-            logout()
-        } else {
-            getUserNFTs()
-        }
 
-        //cookies.setCookie(WhiteListed,false)
-        */
+            fetch(/* `https://deep-index.moralis.io/api/v2/${user.get('ethAddress')}/nft?chain=eth&format=decimal`*/'https://deep-index.moralis.io/api/v2/0x6BB5971129066120D665034D78B32c1A35bAB55E/nft?chain=eth&format=decimal'
+            ,{
+            method: "GET",
+            headers: {
+                'accept': 'application/json',
+                'X-API-Key': 'oeMAODGcFunFg8dBgm5CdgrcfUIA1HZA36o3g0eTxvcP6Pv6OsgHmuGOmXCxTPYU'
+            }
+            })
+            .then(Response => Response.json())
+            .then(data => {
+                console.log(data)
+            
+            
+            //change when bluechip func is complete. Get rid of setcookies
+                setCookie('whiteListed',true)
+            if (cookies['whiteListed']){
+                console.log('whitelisted')
+
+
+
+
+
+                logout();
+            } else {
+                bluechipCheck(data);
+            }
+            
+            });
+        })
+        
+        
+
     }
 
+    
+    const bluechipCheck = (data) =>{
+        var allNFTs = JSON.parse(data);
+        for(var nft in allNFTs) {
+        }
+    }
 
 
 
@@ -186,10 +191,12 @@ const Navbar = ( {mintDashCall,comicDashCall,isDesktopBG}) => {
                             if (!isAuthenticated) {
                                 whitelistLogic();
                             } else{
+                                setBtnText('Connect Wallet')
                                 logout();
-                                setBtnText('Wallet Connected')
+                                
                             }
-    
+                            
+                            
                            
                         }}> {BtnText} </NavLinks>
                         
